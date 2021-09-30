@@ -15,7 +15,7 @@ jobs:
       - name: Build the CI Docker image
         run: |
           [ ${GITHUB_REF#refs/heads/} == "master" ] && export IMAGE_TAG=latest || IMAGE_TAG=${GITHUB_REF#refs/heads/}
-          docker pull ghcr.io/${GITHUB_REPOSITORY}:${IMAGE_TAG} || true
-          docker build . --tag ghcr.io/${GITHUB_REPOSITORY}:${IMAGE_TAG}
-          docker run ghcr.io/${GITHUB_REPOSITORY}:${IMAGE_TAG}
-          docker push ghcr.io/${GITHUB_REPOSITORY}:${IMAGE_TAG}
+          export TARGET_IMAGE=ghcr.io/${GITHUB_REPOSITORY}:${IMAGE_TAG}
+          docker pull ${TARGET_IMAGE} || true
+          docker build . --tag ${TARGET_IMAGE} --cache-from ${TARGET_IMAGE}
+          docker push ${TARGET_IMAGE}
