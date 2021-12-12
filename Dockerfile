@@ -11,6 +11,7 @@ RUN yum -y install \
   jq \
   make \
   nodejs \
+  bzip2-devel \
   openssl-devel \
   python-devel.x86_64 \
   libffi-devel \
@@ -20,9 +21,9 @@ RUN yum -y install \
 
 # install python 3
 RUN cd /opt; \
-  curl https://www.python.org/ftp/python/3.9.4/Python-3.9.4.tgz --output python.tgz; \
+  curl https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz --output python.tgz; \
   tar xzf python.tgz; \
-  cd Python-3.9.4; \
+  cd Python-3.9.7; \
   ./configure --enable-optimizations; \
   make install
 
