@@ -12,6 +12,7 @@ RUN yum -y install \
   make \
   nodejs \
   bzip2-devel \
+  openssl \
   openssl-devel \
   python-devel.x86_64 \
   libffi-devel \
