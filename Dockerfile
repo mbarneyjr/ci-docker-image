@@ -3,7 +3,7 @@ FROM public.ecr.aws/amazonlinux/amazonlinux:latest
 RUN yum update -y
 
 # add nodejs repo
-RUN curl --silent --location https://rpm.nodesource.com/setup_14.x | bash -
+RUN curl --silent --location https://rpm.nodesource.com/setup_18.x | bash -
 RUN yum -y install \
   git \
   gcc \
