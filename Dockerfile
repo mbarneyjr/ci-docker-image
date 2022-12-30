@@ -1,20 +1,17 @@
-FROM public.ecr.aws/amazonlinux/amazonlinux:latest
+FROM public.ecr.aws/amazonlinux/amazonlinux:2022
 
 RUN yum update -y
 
 # add nodejs repo
-RUN curl --silent --location https://rpm.nodesource.com/setup_18.x | bash -
 RUN yum -y install \
   git \
   gcc \
   tar \
   jq \
   make \
-  nodejs \
   bzip2-devel \
   openssl \
   openssl-devel \
-  python-devel.x86_64 \
   libffi-devel \
   zlib-devel \
   zip \
@@ -39,5 +36,15 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
   unzip awscliv2.zip && \
   ./aws/install
 
-# update npm to latest version
-RUN npm install -g npm
+# install node
+ENV NVM_DIR /root/.nvm/
+ENV NODE_VERSION 18.12.1
+RUN mkdir ${NVM_DIR} \
+    && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash \
+    && . $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
+
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
