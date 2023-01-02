@@ -37,7 +37,7 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
   ./aws/install
 
 # install node
-ENV NVM_DIR /root/.nvm/
+ENV NVM_DIR /usr/share/.nvm/
 ENV NODE_VERSION 18.12.1
 RUN mkdir ${NVM_DIR} \
     && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash \
